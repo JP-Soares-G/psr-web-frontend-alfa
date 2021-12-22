@@ -1,0 +1,50 @@
+.form--login {
+    /* margin: 0 auto; */
+    /* background-color: #f2f2f2; */
+    /* width: 80%; */
+    /* height: 20rem; */
+    width: 100%;
+    border-radius: 0.2rem;
+    max-width: 25rem;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+}
+
+
+.form--login h1 {
+    margin: 1rem auto;
+    margin-bottom: 2rem;
+    width: 90%;
+    letter-spacing: -1.5px;
+    font-weight: 700;
+}
+
+.ggl {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    
+}
+
+.form--login p {
+    /* background-color: royalblue; */
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+}
+
+.commom--text {
+    text-align: center;
+    color: #b5b5b5;
+    /* color: #3f3d56; */
+}
+
+.toSignUp {
+    font-weight: 600;
+    color: royalblue;
+    text-decoration: none;
+}
+
+.toSignUp:hover {
+    text-decoration: underline;
+}
