@@ -12,7 +12,7 @@ const login = (username, password) => {
 
             return res.data
         })
-        .catch(err => console.log("[Login]:", err))
+        .catch(err => console.log("[Login]:", err, API_URL))
 }
 
 const logout = () => {
