@@ -1,8 +1,9 @@
 import axios from 'axios'
 
-const API_URL = process.env.REACT_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 
 const login = (username, password) => {
+
     return axios.post(API_URL + "signin", {username, password})
         .then(res => {
             if(res.data.token){
@@ -11,6 +12,7 @@ const login = (username, password) => {
 
             return res.data
         })
+        .catch(err => console.log("[Login]:", err))
 }
 
 const logout = () => {

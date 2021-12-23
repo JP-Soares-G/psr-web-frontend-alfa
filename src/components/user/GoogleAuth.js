@@ -23,13 +23,11 @@ export default props => {
 
     return (   
         <GoogleLogin
-            clientId={process.env.REACT_GOOGLE_CLIENT_ID}
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             render={renderProps => (
                 <button className='ggl' onClick={renderProps.onClick} disabled={renderProps.disabled}><img alt="google icon" className="icon icon--google" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" /></button>
             )}
 
-            
-            // buttonText="Login"
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={'single_host_origin'}
