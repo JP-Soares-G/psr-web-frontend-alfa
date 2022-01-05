@@ -3,18 +3,18 @@ import './optionalsAuth.css'
 import {GoogleLogin} from 'react-google-login' 
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-
-import { login } from '../../reducers/userSlice'
+import authService from '../../../services/auth'
+// import { login } from '../../../reducers/userSlice'
 
 export default props => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const onSuccess = (res) => {
-        const prof = res.profileObj || res.getBasicProfile()
-        const id_token = res.getAuthResponse().id_token
-        dispatch(login(prof))
-        history.push('/dashboard')
+    const onSuccess = async (res) => {
+        const prof = res.profileObj
+        const tokenId = res.tokenId
+        await authService.googleLogin(tokenId)
+        console.log(tokenId)
     }
     
     const onFailure = (res) => {

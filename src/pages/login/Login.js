@@ -1,6 +1,7 @@
 import React from 'react'
-import LoginForm from '../components/user/LoginForm'
-import bgImage from '../assets/bg-grade.png'
+
+import LoginForm from './components/LoginForm'
+import bgImage from '../../assets/bg-grade.png'
 import './login.css'
 
 export default (props) => {

@@ -1,39 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
+import { toast } from "react-toastify";
 
 import authService from "../services/auth";
-import registrationService from "../services/registration";
 
 const user = JSON.parse(authService.getUser())
 
 export const login = createAsyncThunk(
-    'user/login',
+    'auth/login',
     async ({email, password}, thunkAPI) => {
         try {
             const data = await authService.login(email, password)
             return {user: data}
         } catch (err) {
-            return thunkAPI.rejectWithValue()
+            return thunkAPI.rejectWithValue(err)
         }
     }
 )
 
 export const logout = createAsyncThunk(
-    "user/logout",
+    "auth/logout",
     async () => {
         await authService.logout()
-    }
-)
-
-export const signup = createAsyncThunk(
-    'user/signup',
-    async ({username, email, password}, thunkAPI) => {
-        try {
-            const data = await registrationService(username, email, password)
-            // return {user: data}
-        } catch (err) {
-            return thunkAPI.rejectWithValue()
-        }
     }
 )
 
@@ -55,10 +42,15 @@ const initialState = user
     isError: false
 }
 
-export const useSlice = createSlice({
-    name: 'user',
+export const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
+        clearStates: (state) => {
+            state.isSuccess = false
+            state.isError = false
+            state.isPending = false
+        }
     },
     extraReducers: {
         [login.fulfilled]: (state, {payload}) => {
@@ -80,6 +72,8 @@ export const useSlice = createSlice({
             state.isSuccess = false
             state.isError = true
             state.isLogged = false
+            toast.error("Algo deu errado!");
+            console.log("[Auth]: Error")
         },
         [logout.fulfilled]: (state) => {
             state.isLogged = false
@@ -94,4 +88,4 @@ export const useSlice = createSlice({
 
 // export const {logout} = useSlice.actions
 
-export default useSlice.reducer
+export default authSlice.reducer

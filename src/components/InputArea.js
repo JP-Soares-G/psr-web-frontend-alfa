@@ -18,7 +18,7 @@ export default props => {
                         {...props}
                         type={showPassword ? "text" : "password" }
                     />
-                    <label for={props.title} className="placeholder">{props.title}</label>
+                    <label htmlFor={props.title} className="placeholder">{props.title}</label>
                     
                     {showPassword 
                         ? <AiFillEye onClick={changeShowPassword} className="eye" />
@@ -38,7 +38,7 @@ export default props => {
                 {...props}
                 id={props.title}
             />
-            <label for={props.title} className="placeholder">{props.title}</label>
+            <label htmlFor={props.title} className="placeholder">{props.title}</label>
         </div>
     )
 }

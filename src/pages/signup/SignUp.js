@@ -1,6 +1,6 @@
 import React from 'react'
-import SignUpForm from '../components/user/SignUpForm'
-import bgImage from '../assets/bg-grade.png'
+import SignUpForm from './components/SignUpForm'
+import bgImage from '../../assets/bg-grade.png'
 
 import './signUp.css'
 

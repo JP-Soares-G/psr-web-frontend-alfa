@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {GoogleLogout} from 'react-google-login'
 // import { useHistory } from 'react-router'
 
-import {logout} from '../reducers/userSlice'
+import {logout} from '../../reducers/authSlice'
+import api from '../../services/api'
 
 export default (props) => {
     const dispatch = useDispatch()
     // const history = useHistory()
 
-    const { user, isLogged } = useSelector(state => state.user)
-    
+    const { user, isLogged } = useSelector(state => state.auth)
+    console.log(user)
     const onSuccess = res => {
         // history.push('/')
         dispatch(logout())
@@ -23,6 +24,12 @@ export default (props) => {
         alignItems: 'center', 
         justifyContent: 'center'
     }
+
+    // useEffect(() => {
+    //     api.get("/user/12").then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // }, [])
+
 
     const LogoutBtn = () => {
         return (
