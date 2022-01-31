@@ -12,6 +12,9 @@ import { login } from '../../../reducers/authSlice'
 export default props => { 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    
+    const [error, setError] = useState(true)
+    const [errorMessage, setErrorMessage] = useState("Usuário não pode ser vazio!")
 
     const dispatch = useDispatch()
     const {isSuccess, isPending} = useSelector((state) => state.auth)
@@ -33,7 +36,7 @@ export default props => {
         <form className="form--login user--form" onSubmit={submitLogin}>
             <h1>Login</h1>
 
-            <InputArea value={email} onChange={e => setEmail(e.target.value)} title="Username"/>
+            <InputArea isError={error} errorMessage={errorMessage} value={email} onChange={e => setEmail(e.target.value)} title="Username"/>
             <InputArea value={password} onChange={e => setPassword(e.target.value)} title="Password"/>
             <SubmitBtn pending={isPending} title="Entrar" />
 

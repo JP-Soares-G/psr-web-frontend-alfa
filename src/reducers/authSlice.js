@@ -1,9 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
 import authService from "../services/auth";
+import { setMessage } from "./messageSlice";
 
 const user = JSON.parse(authService.getUser())
+
+const validateEmail = (email) => {
+    const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return EMAIL_REGEX.test(String(email).toLowerCase());
+}
+
+const validateLogin = (values, thunkAPI) => {
+    if(values.username != undefined && values.username.trim() === '') return thunkAPI.dispatch(setMessage({message: "O nome de usuário não pode ser vazio", type: "error"}))
+    if(values.email != undefined && values.email.trim() === '') return thunkAPI.dispatch(setMessage({message: "Email não pode ser vazio", type: "error"}))
+    if(values.password.trim() === '') return thunkAPI.dispatch(setMessage({message: "Password não pode ser vazio", type: "error"}))
+    return true
+}
 
 export const login = createAsyncThunk(
     'auth/login',
@@ -12,6 +24,8 @@ export const login = createAsyncThunk(
             const data = await authService.login(email, password)
             return {user: data}
         } catch (err) {
+            validateLogin({email, password}, thunkAPI)
+            // thunkAPI.dispatch(setMessage({message: "Dados informados invalidos", type: "error"}))
             return thunkAPI.rejectWithValue(err)
         }
     }
@@ -72,8 +86,7 @@ export const authSlice = createSlice({
             state.isSuccess = false
             state.isError = true
             state.isLogged = false
-            toast.error("Algo deu errado!");
-            console.log("[Auth]: Error")
+            
         },
         [logout.fulfilled]: (state) => {
             state.isLogged = false
