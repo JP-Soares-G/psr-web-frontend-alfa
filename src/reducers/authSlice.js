@@ -5,26 +5,26 @@ import { setMessage } from "./messageSlice";
 
 const user = JSON.parse(authService.getUser())
 
-const validateEmail = (email) => {
-    const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return EMAIL_REGEX.test(String(email).toLowerCase());
-}
+// const validateEmail = (email) => {
+//     const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//     return EMAIL_REGEX.test(String(email).toLowerCase());
+// }
 
 const validateLogin = (values, thunkAPI) => {
-    if(values.username != undefined && values.username.trim() === '') return thunkAPI.dispatch(setMessage({message: "O nome de usuário não pode ser vazio", type: "error"}))
-    if(values.email != undefined && values.email.trim() === '') return thunkAPI.dispatch(setMessage({message: "Email não pode ser vazio", type: "error"}))
+    if(values.username !== undefined && values.username.trim() === '') return thunkAPI.dispatch(setMessage({message: "Username não pode ser vazio", type: "error"}))
+    if(values.email !== undefined && values.email.trim() === '') return thunkAPI.dispatch(setMessage({message: "Email não pode ser vazio", type: "error"}))
     if(values.password.trim() === '') return thunkAPI.dispatch(setMessage({message: "Password não pode ser vazio", type: "error"}))
     return true
 }
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({email, password}, thunkAPI) => {
+    async ({username, password}, thunkAPI) => {
         try {
-            const data = await authService.login(email, password)
+            const data = await authService.login(username, password)
             return {user: data}
         } catch (err) {
-            validateLogin({email, password}, thunkAPI)
+            validateLogin({username, password}, thunkAPI)
             // thunkAPI.dispatch(setMessage({message: "Dados informados invalidos", type: "error"}))
             return thunkAPI.rejectWithValue(err)
         }

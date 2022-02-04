@@ -7,7 +7,7 @@ import messageReducer from "../reducers/messageSlice"
 
 export default configureStore({
     reducer: {
-        user: userReducer,
+        // user: userReducer,
         auth: authReducer,
         registration: registrationReducer,
         message: messageReducer

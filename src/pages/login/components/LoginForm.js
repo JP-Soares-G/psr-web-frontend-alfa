@@ -10,11 +10,8 @@ import InputArea from '../../../components/InputArea'
 import { login } from '../../../reducers/authSlice'
 
 export default props => { 
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    
-    const [error, setError] = useState(true)
-    const [errorMessage, setErrorMessage] = useState("Usuário não pode ser vazio!")
 
     const dispatch = useDispatch()
     const {isSuccess, isPending} = useSelector((state) => state.auth)
@@ -22,7 +19,7 @@ export default props => {
 
     const submitLogin = (event) => {
           event.preventDefault();
-          dispatch(login({email, password}))
+          dispatch(login({username, password}))
     }
 
     useEffect(() => {
@@ -36,7 +33,7 @@ export default props => {
         <form className="form--login user--form" onSubmit={submitLogin}>
             <h1>Login</h1>
 
-            <InputArea isError={error} errorMessage={errorMessage} value={email} onChange={e => setEmail(e.target.value)} title="Username"/>
+            <InputArea value={username} onChange={e => setUsername(e.target.value)} title="Username"/>
             <InputArea value={password} onChange={e => setPassword(e.target.value)} title="Password"/>
             <SubmitBtn pending={isPending} title="Entrar" />
 

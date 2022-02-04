@@ -2,7 +2,13 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Routes from './Routes';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
+import jwt from 'jsonwebtoken'
+
 function App() {
+
+	const {user} = useSelector(state => state.auth)
+
 
 	return (
 		<div className="App">
